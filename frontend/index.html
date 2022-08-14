@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+  </head>
+  <header
+    class="w-full h-[50px] flex items-center bg-[#413F42] px-10 justify-between text-[#CDBE78]"
+  >
+    <figure>
+      <figcaption class="font-bold">DIRGA CENTER</figcaption>
+    </figure>
+    <nav>
+      <ul class="cursor-pointer">
+        <span class="font-semibold">Produk</span>
+      </ul>
+    </nav>
+  </header>
+  <body>
+    <div
+      id="app"
+      class="h-screen w-full flex flex-col items-center justify-center bg-[#7F8487]"
+    >
+      <form
+        @submit.prevent="product.isUpdate ? updateProduct() : submitProduct()"
+        class="flex flex-row gap-x-3 justify-center items-center"
+      >
+        <div class="flex justify-center">
+          <div class="mb-3 gap-y-3">
+            <label class="text-gray-800 font-bold">Nama Produk</label>
+            <input
+              v-model="product.name"
+              type="text"
+              class="w-full px-3 py-1.5 bg-white border border-solid border-gray-300 focus:bg-white focus:border-blue-600 focus:outline-none block rounded"
+              placeholder="Masukan produk"
+            />
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="mb-3 gap-y-3">
+            <label class="text-gray-800 font-bold">Nama Brand</label>
+            <input
+              v-model="product.brand"
+              type="text"
+              class="w-full px-3 py-1.5 bg-white border border-solid border-gray-300 focus:bg-white focus:border-blue-600 focus:outline-none block rounded"
+              placeholder="Masukan brand"
+            />
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="mb-3 gap-y-3">
+            <label class="text-gray-800 font-bold">Harga</label>
+            <input
+              v-model="product.price"
+              type="text"
+              class="w-full px-3 py-1.5 bg-white border border-solid border-gray-300 focus:bg-white focus:border-blue-600 focus:outline-none block rounded"
+              placeholder="Masukan harga"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="mt-5 font-bold text-[#CDBE78] bg-[#413F42] text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none rounded-lg"
+          >
+            {{product.isUpdate ? 'Ubah' : 'Simpan'}}
+          </button>
+        </div>
+      </form>
+      <div class="overflow-x-auto rounded-lg">
+        <table class="bg-white">
+          <thead class="bg-[#413F42] text-[#CDBE78]">
+            <tr>
+              <th class="text-left px-8 py-4">Nama Barang</th>
+              <th class="text-left px-8 py-4">Merek</th>
+              <th class="text-left px-8 py-4">Harga</th>
+              <th class="text-left px-8 py-4">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in product.list" :key="index">
+              <td class="px-8 py-4">{{item.name}}</td>
+              <td class="px-8 py-4">{{item.brand}}</td>
+              <td class="px-8 py-4">{{item.price}}</td>
+              <td class="px-8 py-4 flex gap-x-2">
+                <span
+                  @click="deleteProduct(item.id)"
+                  class="cursor-pointer px-2 py-1 border-2 border-red-600 text-red-600 font-medium text-sm rounded"
+                >
+                  Hapus
+                </span>
+                <span
+                  @click="getProductById(item.id)"
+                  class="cursor-pointer px-2 py-1 border-2 border-blue-400 text-blue-400 font-medium text-sm rounded"
+                >
+                  Ubah
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
